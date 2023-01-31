@@ -1,13 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseInterceptors } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request } from "express";
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
-import { Types } from 'mongoose';
-import { ObjectId } from 'mongodb';
+import { FormatResponseInterceptor } from "../common/interceptors/format-response.interceptor"
 
 
+@UseInterceptors(FormatResponseInterceptor)
+// If required we can add the message param to pass to the interceptor
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
@@ -20,7 +21,7 @@ export class UsersController {
   @Get()
   async getUsers(): Promise<User[]> {
     let result = await this.usersService.getUsers();
-    return this.usersService.getUsers();
+    return result;
   }
 
   @Post()
