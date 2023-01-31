@@ -8,11 +8,11 @@ export class BooksRepository {
     constructor(@InjectModel(Book.name) private bookModel: Model<BookDocument>) { }
 
     async findOne(bookFilterQuery: FilterQuery<Book>): Promise<Book> {
-        return this.bookModel.findOne(bookFilterQuery);
+        return this.bookModel.findOne(bookFilterQuery).populate('user').exec();;
     }
 
     async find(bookFilterQuery: FilterQuery<Book>): Promise<Book[]> {
-        return this.bookModel.find(bookFilterQuery).populate('user')
+        return this.bookModel.find(bookFilterQuery).populate('user').exec();
     }
 
     async create(book: Book): Promise<Book> {
