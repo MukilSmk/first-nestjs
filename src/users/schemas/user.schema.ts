@@ -25,8 +25,14 @@ export class User{
       required: [true, "User Email must not be empty"]})
     email: string;
 
+    @Prop({required: true})
+    password: string;
+
     @Prop()
     age: number;
+
+    
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
