@@ -22,6 +22,11 @@ export class UsersService{
         return this.usersRepository.find({})
     }
 
+    async validateUser(userName:string, password: string): Promise<User>{
+        return this.usersRepository.findOne({userName,password})
+
+    }
+
     async createUser(email: string, age: number, userName: string, password:string): Promise<User>{
         const hashed_password = await hash_password(password)
         return this.usersRepository.create({

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { Book } from './schemas/books.schema';
@@ -16,7 +16,6 @@ export class BooksController {
     async getBook(@Param('_id') _id: any): Promise<Book> {
         return this.booksService.getBookById(_id);
     }
-
     @Get()
     async getBooks(): Promise<Book[]> {
         return this.booksService.getBooks();
